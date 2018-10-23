@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="/WEB-INF/TaskModelView/viewpage.xhtml">
+	<ui:define name="content">
+		<div id="page-wrapper">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">Tarefas</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-lg-12">
+									<div class="agenda">
+										<div class="table-responsive">
+											<h:form>
+												<h:dataTable value="#{taskView.allTasks}" var="task"
+													styleClass="table table-condensed table-bordered table table-hover">
+													<h:column>
+														<f:facet name="header">Concluído</f:facet>
+														<h1>
+															<h:selectBooleanCheckbox class="checkbox"
+																value="#{task.fgStatus != null}" disabled="true" />
+														</h1>
+													</h:column>
+													<h:column>
+														<f:facet name="header">Data da inserção</f:facet>
+														<h2>
+															<h:outputText value="#{task.dtInsert}"></h:outputText>
+														</h2>
+													</h:column>
+													<h:column>
+														<f:facet name="header">Nome da terefa</f:facet>
+														<h4>
+															<h:outputText value="#{task.nmTask}"></h:outputText>
+														</h4>
+													</h:column>
+													<h:column>
+														<f:facet name="header">Descrição da tarefa</f:facet>
+														<h5>
+															<h:outputText value="#{task.dsTask}"></h:outputText>
+														</h5>
+													</h:column>
+													<h:column>
+														<f:facet name="header">Alterar</f:facet>
+														<h:link styleClass="btn btn-warning btn-xs btn-block"
+															outcome="newTask" data-toggle="tooltip"
+															data-placement="top" title="Alterar tarefa">
+															<f:param name="id" value="#{task.idTask}" />
+														</h:link>
+													</h:column>
+													<h:column>
+														<f:facet name="header">Excluir</f:facet>
+														<h:commandLink immediate="true" action="#{taskController.delete(task.idTask)}"
+															value="1" data-toggle="tooltip" data-placement="top"
+															title="Excluir">
+														</h:commandLink>
+													</h:column>
+												</h:dataTable>
+											</h:form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>
